@@ -12,6 +12,8 @@ local function options()
   vim.opt.clipboard = "unnamedplus"
   vim.opt_local.formatoptions:remove({ "c", "r", "o" })
   vim.opt.spell = false
+  vim.opt.wrap = true
+  vim.opt.breakindent = true
 
   -- format
   vim.opt.smartindent = true
@@ -37,8 +39,8 @@ vim.keymap.set("i", "<C-l>", "<Del>", opts)
 vim.keymap.set("i", "<C-k>", "<C-o>O", opts)
 
 -- normal
-vim.keymap.set("n", "<C-u>", "5k", opts)
-vim.keymap.set("n", "<C-d>", "5j", opts)
+vim.keymap.set({ "n", "v" }, "<C-u>", "5k", opts)
+vim.keymap.set({ "n", "v" }, "<C-d>", "5j", opts)
 vim.keymap.set({ "n", "v" }, "j", "gj", opts)
 vim.keymap.set({ "n", "v" }, "k", "gk", opts)
 vim.keymap.set({ "n", "v" }, "P", "gP", opts)
