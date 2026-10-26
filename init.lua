@@ -19,7 +19,7 @@ local function options()
   vim.opt.smartindent = true
   vim.opt.tabstop = 2
   vim.opt.shiftwidth = 2
-  vim.opt.expandtab = true
+  vim.opt.expandtab = false
 end
 
 options()
