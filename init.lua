@@ -7,7 +7,12 @@ require("config.lazy")
 ---------------
 --  Options  --
 ---------------
-local function options()
+local function options(expandtab)
+  -- use space indent in default
+  if expandtab == nil then
+    expandtab = true
+  end
+
   -- options
   vim.opt.clipboard = "unnamedplus"
   vim.opt_local.formatoptions:remove({ "c", "r", "o" })
@@ -19,13 +24,23 @@ local function options()
   vim.opt.smartindent = true
   vim.opt.tabstop = 2
   vim.opt.shiftwidth = 2
-  vim.opt.expandtab = false
+  vim.opt.expandtab = expandtab
 end
 
 options()
+-- space indent
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "*",
-  callback = options,
+  callback = function()
+    options()
+  end,
+})
+-- tab indent
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "gdscript",
+  callback = function()
+    options(false)
+  end,
 })
 
 ---------------
