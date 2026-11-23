@@ -1,0 +1,7 @@
+{
+  "Fix Comment": {
+    "prefix": "fix",
+    "body": "<!-- fix: $0 -->",
+    "description": "Insert fix HTML comment"
+  }
+}
