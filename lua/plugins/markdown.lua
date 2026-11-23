@@ -12,4 +12,8 @@ return {
       end
     end,
   },
+  {
+    "MeanderingProgrammer/render-markdown.nvim",
+    enabled = false,
+  },
 }

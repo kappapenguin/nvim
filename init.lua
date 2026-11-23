@@ -21,10 +21,10 @@ local function options(expandtab)
   vim.opt.breakindent = true
 
   -- format
-  vim.opt.smartindent = true
-  vim.opt.tabstop = 2
-  vim.opt.shiftwidth = 2
-  vim.opt.expandtab = expandtab
+  vim.opt_local.smartindent = true
+  vim.opt_local.tabstop = 2
+  vim.opt_local.shiftwidth = 2
+  vim.opt_local.expandtab = expandtab
 end
 
 options()
