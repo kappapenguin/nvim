@@ -5,6 +5,24 @@
 require("config.lazy")
 
 ---------------
+--  Function --
+---------------
+-- mark cursor before scrolling
+local last_scroll_time = 0
+local function mark_scroll(cmd)
+  local keys = vim.api.nvim_replace_termcodes(cmd, true, false, true)
+  return function()
+    local now = vim.uv.now()
+
+    if now - last_scroll_time > 700 then
+      vim.cmd("normal! m'")
+    end
+    last_scroll_time = now
+    vim.cmd("normal! " .. keys)
+  end
+end
+
+---------------
 --  Options  --
 ---------------
 local function options(expandtab)
@@ -27,15 +45,16 @@ local function options(expandtab)
   vim.opt_local.expandtab = expandtab
 end
 
+-- apply options
 options()
--- space indent
+--   space indent
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "*",
   callback = function()
     options()
   end,
 })
--- tab indent
+--   tab indent
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "gdscript",
   callback = function()
@@ -53,12 +72,14 @@ vim.keymap.set("i", "jj", "<Esc>", opts)
 vim.keymap.set("i", "<C-l>", "<Del>", opts)
 vim.keymap.set("i", "<C-k>", "<C-o>O", opts)
 
--- normal
+-- viewing
 vim.keymap.set({ "n", "v" }, "<C-u>", "5k", opts)
 vim.keymap.set({ "n", "v" }, "<C-d>", "5j", opts)
 vim.keymap.set({ "n", "v" }, "j", "gj", opts)
 vim.keymap.set({ "n", "v" }, "k", "gk", opts)
 vim.keymap.set({ "n", "v" }, "P", "gP", opts)
+vim.keymap.set({ "n", "v" }, "<ScrollWheelDown>", mark_scroll("3<C-e>"), opts)
+vim.keymap.set({ "n", "v" }, "<ScrollWheelUp>", mark_scroll("3<C-y>"), opts)
 
 -- notify completion
 vim.notify("initialization completed")
